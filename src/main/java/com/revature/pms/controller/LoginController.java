@@ -15,14 +15,14 @@ public class LoginController {
     private UserServices userService;
 
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
-        return "Successfully logged in using email: " + user.getEmail();
+    public ResponseEntity login(@RequestBody User user) {
+        return ResponseEntity.ok(userService.login(user.getEmail(),user.getPassword()));
     }
 
     @GetMapping("/logout")
     public ResponseEntity<Void> logout() {
         userService.logout();
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.accepted().build(); //request 202
     }
 
 }

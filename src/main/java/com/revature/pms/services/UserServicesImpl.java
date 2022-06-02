@@ -60,7 +60,7 @@ public class UserServicesImpl implements UserServices {
         return user;
     }
 
-    //did not implement yet
+
     @Override
     public User login(String userEmail, String userPassword) {
         User exists = userDAO.findByEmailAndPassword(userEmail, userPassword)
