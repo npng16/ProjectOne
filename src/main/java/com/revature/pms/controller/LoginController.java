@@ -3,6 +3,7 @@ package com.revature.pms.controller;
 import com.revature.pms.model.User;
 import com.revature.pms.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,9 +20,9 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public String logout() {
+    public ResponseEntity<Void> logout() {
         userService.logout();
-        return "Successfully logged out of account..";
+        return ResponseEntity.accepted().build();
     }
 
 }
