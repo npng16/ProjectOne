@@ -27,11 +27,13 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    //reference for one-to-one relationship  **** a cart belongs to one user and a user has only one cart
+    // every time a user is created, a cart is created too
+
+    //reference for one-to-one relationship  **** a cart belongs to one user and a user has only one cart ****************
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "user", fetch=FetchType.LAZY, targetEntity = Cart.class)
     private Cart cart;
 
-    //reference for many-to-many
+    //reference for many-to-many for item - user relationship
     @ManyToMany
     @ElementCollection
     @CollectionTable(name = "userCartList", joinColumns = @JoinColumn(name = "userId"))
@@ -39,6 +41,11 @@ public class User {
     private List<Item> cartList = new ArrayList<>();
 
 
+    // reference for user - order relationship
+    // a user may have many orders but an order belongs to only one user
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    private List<Order> orders;
 
     public String displayMessage() {
         return "Hi this is from User class";

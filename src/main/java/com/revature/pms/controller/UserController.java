@@ -1,7 +1,6 @@
 package com.revature.pms.controller;
 
 import com.revature.pms.dao.CartDAO;
-import com.revature.pms.model.Cart;
 import com.revature.pms.model.Item;
 import com.revature.pms.model.User;
 import com.revature.pms.services.ItemServices;
@@ -65,7 +64,7 @@ public class UserController {
         } else {
             result = userService.registerUser(user);
             if (result) {
-                responseEntity = new ResponseEntity<String>("Successfully Saved your product:"
+                responseEntity = new ResponseEntity<String>("Successfully Saved user:"
                         + user.getUserId(), HttpStatus.OK);
             }
         }
