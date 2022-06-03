@@ -13,10 +13,14 @@ import java.util.List;
 @RestController
 @RequestMapping("item") //localhost:8080/item
 public class ItemController {
+    boolean result;
+    @Autowired
+    ItemServices itemService;
 
     @PostMapping("/addItemToDB")
     public ResponseEntity<String> addItem(@RequestBody Item item) {
         ResponseEntity responseEntity = null;
+        itemService.addItem(item);
         responseEntity = new ResponseEntity<String>("Successfully Saved your item:"
                 + item.getItemId(), HttpStatus.OK);
         return responseEntity;
