@@ -9,6 +9,4 @@ import java.util.List;
 
 @Repository
 public interface ItemDAO extends JpaRepository<Item, Integer> {
-    @Query("SELECT i FROM Item i ")
-    public List<Item> getAllItems();
 }

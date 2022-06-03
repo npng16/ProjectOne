@@ -27,14 +27,14 @@ public class Cart implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
-
+//
 //    a cart may have many items
-//    @ManyToMany(cascade = {CascadeType.ALL})
-//    @JoinTable(
-//            name = "item",
-//            joinColumns = {@JoinColumn(name = "cartId")},
-//            inverseJoinColumns = {@JoinColumn(name = "cartList")}
-//    )
-//    private List<Item> itemIdInCart;
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "cartList",
+            joinColumns = @JoinColumn(name = "cartId"),
+            inverseJoinColumns = @JoinColumn(name = "cartList")
+    )
+    private List<Item> itemList;
 
 }

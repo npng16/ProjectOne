@@ -11,8 +11,8 @@ public class Order {
     private int orderId;
     private int userId;
 
-    @OneToMany
-    private Set<Item> itemsInOrder;
+//    @OneToMany
+//    private Set<Item> itemsInOrder;
 
     public void setUserId(User user) {
         userId = user.getUserId();

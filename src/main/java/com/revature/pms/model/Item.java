@@ -25,9 +25,9 @@ public class Item implements Serializable {
     private double itemPrice;
 
     // ********** an item can belong to only one order but there can be many items in a cart ***********
-    @ManyToOne
-    @JoinColumn(name = "orderId")
-    private Order order;
+//    @ManyToOne
+//    @JoinColumn(name = "orderId")
+//    private Order order;
 
     public Item() {
         System.out.println("Item object has been created..");

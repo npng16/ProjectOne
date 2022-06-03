@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CartDAO extends JpaRepository<Cart, Integer> {
-//    public void insertToOrders();
 }

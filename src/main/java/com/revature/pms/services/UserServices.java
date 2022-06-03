@@ -10,7 +10,7 @@ public interface UserServices {
 
     public boolean registerUser(User user);
     public boolean deleteUser(int userId);
-    public boolean updateUser(User user);
+    public boolean updateUser(User user, int id);
     public User getUser(int userId);
     public boolean isUserExists(int userId);
 

@@ -8,7 +8,6 @@ import com.revature.pms.utilities.CheckEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -17,9 +16,6 @@ import java.util.List;
 public class UserServicesImpl implements UserServices {
     @Autowired
     UserDAO userDAO;
-
-    @Autowired
-    ItemDAO itemDAO;
 
     @Autowired
     CheckEmail checkEmail;
@@ -45,11 +41,18 @@ public class UserServicesImpl implements UserServices {
     }
 
     @Override
-    public boolean updateUser(User user) {
-        if (checkEmail.checkEmail(user.getEmail())) {
-            userDAO.save(user);
-            return true;
-        } else {
+    public boolean updateUser(User user, int id) {
+        User oUser = userDAO.getReferenceById(id);
+        if(isUserExists(oUser.getUserId())) {
+//            oUser.setEmail(user.getEmail());
+            oUser.setName(user.getName());
+            oUser.setCart(user.getCart());
+//            oUser.setOrders(user.getOrders());
+            userDAO.save(oUser);
+           return true;
+        }
+        else {
+            System.out.println("Cannot update user because user does not exist");
             return false;
         }
     }

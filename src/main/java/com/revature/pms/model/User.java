@@ -31,14 +31,7 @@ public class User {
 
     //reference for one-to-one relationship  **** a cart belongs to one user and a user has only one cart ****************
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "user", fetch=FetchType.LAZY, targetEntity = Cart.class)
-    private Cart cart;
-
-    //reference for many-to-many for item - user relationship
-    @ManyToMany
-    @ElementCollection
-    @CollectionTable(name = "userCartList", joinColumns = @JoinColumn(name = "userId"))
-    @Column(name = "itemsInCart")
-    private List<Item> cartList = new ArrayList<>();
+    private Cart cart = new Cart();
 
 
     // reference for user - order relationship

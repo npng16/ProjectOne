@@ -59,7 +59,7 @@ public class UserController {
         ResponseEntity responseEntity = null;
 
         if (userService.isUserExists(user.getUserId())) {
-            responseEntity = new ResponseEntity<String>("Cannot save because product with product id :"
+            responseEntity = new ResponseEntity<String>("Cannot save because user with user id :"
                     + user.getUserId() + " already exists", HttpStatus.CONFLICT);
         } else {
             result = userService.registerUser(user);
@@ -80,15 +80,16 @@ public class UserController {
     }
 
 
-    @PutMapping //localhost:8080/user
-    public String updateUser(@RequestBody User user) {
-        System.out.println("Updating details of: " + user);
-        if (userService.isUserExists(user.getUserId())) {
-            userService.updateUser(user);
-            return "Successfully updated user: " + user;
+    @PutMapping("/update/{Id}") //localhost:8080/user
+    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("Id") int id) {
+        boolean result = userService.updateUser(user, id);
+        ResponseEntity responseEntity = null;
+        if(result) {
+            responseEntity= new ResponseEntity<String>(user.getName() + " updated successfully!", HttpStatus.OK);
         } else {
-            return "can't update because the user does not exist..";
+            responseEntity = new ResponseEntity<String>("Cannot update user", HttpStatus.NOT_ACCEPTABLE);
         }
+        return responseEntity;
 
     }
 
@@ -101,10 +102,5 @@ public class UserController {
         return new ResponseEntity<String>(items.toString(), HttpStatus.OK);
     }
 
-    @PutMapping("/addItemToCart/{mCartId}")
-    public String addItemToCart(@RequestBody int mItemId) {
-        return "added item by item Id: " + mItemId + " to cart..";
-
-    }
 
 }
