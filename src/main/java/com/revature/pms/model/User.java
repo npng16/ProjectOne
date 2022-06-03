@@ -30,7 +30,8 @@ public class User {
     // every time a user is created, a cart is created too
 
     //reference for one-to-one relationship  **** a cart belongs to one user and a user has only one cart ****************
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "user", fetch=FetchType.LAZY, targetEntity = Cart.class)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cartId")
     private Cart cart = new Cart();
 
 

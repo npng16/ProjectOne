@@ -80,7 +80,7 @@ public class UserController {
     }
 
 
-    @PutMapping("/update/{Id}") //localhost:8080/user
+    @PutMapping("/addItemToCart/{Id}") //localhost:8080/user
     public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("Id") int id) {
         boolean result = userService.updateUser(user, id);
         ResponseEntity responseEntity = null;

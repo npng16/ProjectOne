@@ -23,10 +23,10 @@ public class Cart implements Serializable {
 
     // a cart is created every time a user is created
 
-    //************ a user has one and only one cart and a cart belongs to only one user
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
-    private User user;
+//    //************ a user has one and only one cart and a cart belongs to only one user
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "userId")
+//    private User user;
 //
 //    a cart may have many items
     @ManyToMany(cascade = {CascadeType.ALL})

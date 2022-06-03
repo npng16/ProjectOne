@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("item") //localhost:8080/item
 public class ItemController {
-    boolean result;
     @Autowired
     ItemServices itemService;
 
