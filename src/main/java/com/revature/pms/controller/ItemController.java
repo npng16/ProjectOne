@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,6 +17,13 @@ public class ItemController {
     @Autowired
     ItemServices itemService;
 
+    @GetMapping()
+    public ResponseEntity<String> getItems() {
+        ResponseEntity responseEntity = null;
+        List<Item> items = new ArrayList<>();
+        items = itemService.getItems();
+        return new ResponseEntity<String>(items.toString(), HttpStatus.OK);
+    }
     @PostMapping()
     public ResponseEntity<String> addItem(@RequestBody Item item) {
         ResponseEntity responseEntity = null;

@@ -94,13 +94,7 @@ public class UserController {
     }
 
     // **********************************  Item related requests  ******************************************
-    @GetMapping("/displayAllItems")
-    public ResponseEntity<String> getItems() {
-        ResponseEntity responseEntity = null;
-        List<Item> items = new ArrayList<>();
-        items = itemService.getItems();
-        return new ResponseEntity<String>(items.toString(), HttpStatus.OK);
-    }
+
 
 
 }
