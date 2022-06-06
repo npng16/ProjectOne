@@ -16,7 +16,7 @@ public class ItemController {
     @Autowired
     ItemServices itemService;
 
-    @PostMapping("/addItemToDB")
+    @PostMapping()
     public ResponseEntity<String> addItem(@RequestBody Item item) {
         ResponseEntity responseEntity = null;
         itemService.addItem(item);
