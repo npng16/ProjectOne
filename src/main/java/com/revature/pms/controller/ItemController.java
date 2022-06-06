@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("item") //localhost:8080/item
@@ -18,11 +20,10 @@ public class ItemController {
     ItemServices itemService;
 
     @GetMapping()
-    public ResponseEntity<String> getItems() {
+    public ResponseEntity<List<Item>> getItems() {
         ResponseEntity responseEntity = null;
-        List<Item> items = new ArrayList<>();
-        items = itemService.getItems();
-        return new ResponseEntity<String>(items.toString(), HttpStatus.OK);
+        List<Item> items = itemService.getItems();
+        return new ResponseEntity<List<Item>>(items, HttpStatus.OK);
     }
     @PostMapping()
     public ResponseEntity<String> addItem(@RequestBody Item item) {

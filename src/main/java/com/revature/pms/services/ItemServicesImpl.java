@@ -2,10 +2,13 @@ package com.revature.pms.services;
 
 import com.revature.pms.dao.ItemDAO;
 import com.revature.pms.model.Item;
+import com.revature.pms.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class ItemServicesImpl implements ItemServices {
@@ -42,9 +45,11 @@ public class ItemServicesImpl implements ItemServices {
     }
 
     @Override
-    public ArrayList<Item> getItems() {
-        ArrayList<Item> arrayListOfItems = new ArrayList<>();
-        arrayListOfItems.addAll(itemDAO.findAll());
-        return arrayListOfItems;
+    public List<Item> getItems() {
+        return itemDAO.findAll();
     }
+//        Set<Item> setOfItems = new HashSet<>();
+//        setOfItems.addAll(itemDAO.findAll());
+//        return setOfItems;
+//    }
 }
