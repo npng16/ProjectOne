@@ -47,7 +47,7 @@ public class CartController {
         cartDAO.save(cart);
         return cart;
     }
-    @GetMapping("/addItemToCart{id}")
+    @GetMapping("/addItemToCart/{id}")
     public String addItemToCart(@PathVariable("Id") int mItemId) {
 
         return "added item by item Id: " + mItemId + " to cart..";

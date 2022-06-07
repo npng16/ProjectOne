@@ -76,7 +76,8 @@ public class UserController {
     // ******************** DELETE A USER BY ID *************************************
     @DeleteMapping("{pUserId}")
     public String deleteUser(@PathVariable("pUserId") int userId) {
-        return "Deleting details by userId: " + user;
+        userService.deleteUser(userId);
+        return "Deleting details by userId: " + userId;
     }
 
 
@@ -92,9 +93,5 @@ public class UserController {
         return responseEntity;
 
     }
-
-    // **********************************  Item related requests  ******************************************
-
-
 
 }

@@ -11,7 +11,6 @@ import java.util.List;
 
 @Data
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
 @Component  //creates the User bean
 @Table(name = "user", schema = "one")
@@ -40,7 +39,9 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private List<Order> orders;
-
+    public User() {
+        System.out.println("Item object has been created..");
+    }
     public String displayMessage() {
         return "Hi this is from User class";
     }

@@ -33,4 +33,10 @@ public class ItemController {
                 + item.getItemId(), HttpStatus.OK);
         return responseEntity;
     }
+
+    @DeleteMapping("{pItemId}")
+    public String deleteItem(@PathVariable("pItemId") int itemId) {
+        itemService.deleteItem(itemId);
+        return "Deleting details by item Id: " + itemId;
+    }
 }
