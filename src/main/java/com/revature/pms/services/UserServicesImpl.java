@@ -5,6 +5,8 @@ import com.revature.pms.exceptions.UserNotFoundException;
 import com.revature.pms.model.User;
 import com.revature.pms.dao.UserDAO;
 import com.revature.pms.utilities.CheckEmail;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.util.List;
 
 @Service
 public class UserServicesImpl implements UserServices {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServicesImpl.class);
     @Autowired
     UserDAO userDAO;
 
@@ -24,12 +27,17 @@ public class UserServicesImpl implements UserServices {
     private HttpServletRequest request;
     @Override
     public boolean registerUser(User user) {
-        System.out.println("Registering user in database...");
-        if(checkEmail.checkEmail(user.getEmail())) {
+        LOGGER.info("Attempting to register user in database...");
+        if(userDAO.existsByEmail(user.getEmail())){
+            LOGGER.warn("User already exists");
+        }
+        if(!checkEmail.checkEmail(user.getEmail())) {    //check if email is not valid
+            LOGGER.warn("Failed to save user in database because invalid email");
+            return false;
+        }
+        else {
             userDAO.save(user);
             return true;
-        } else {
-            return false;
         }
     }
 

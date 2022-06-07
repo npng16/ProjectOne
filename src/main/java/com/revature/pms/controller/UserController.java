@@ -1,8 +1,11 @@
 package com.revature.pms.controller;
 
+import com.revature.pms.annotations.Authorized;
 import com.revature.pms.dao.CartDAO;
 import com.revature.pms.model.Item;
+import com.revature.pms.model.Role;
 import com.revature.pms.model.User;
+import com.revature.pms.services.AuthorizationService;
 import com.revature.pms.services.ItemServices;
 import com.revature.pms.services.UserServices;
 import com.revature.pms.utilities.GenerateRandomNumber;
@@ -22,9 +25,7 @@ public class UserController {
     UserServices userService;
 
     @Autowired
-    ItemServices itemService;
-    @Autowired
-    CartDAO cartDAO;
+    AuthorizationService authorizationService;
     @Autowired
     User user;
 
@@ -39,6 +40,7 @@ public class UserController {
                 " and password hashing message is: " + result;
     }
 
+    @Authorized(allowedRoles = {Role.ADMIN})
     @GetMapping     //localhost:8080/user   *********** DISPLAY ALL USERS **********
     public ResponseEntity<List<User>> getUsers() {
         ResponseEntity responseEntity = null;
@@ -73,6 +75,7 @@ public class UserController {
 
 
 
+    @Authorized(allowedRoles = {Role.ADMIN})
     // ******************** DELETE A USER BY ID *************************************
     @DeleteMapping("{pUserId}")
     public String deleteUser(@PathVariable("pUserId") int userId) {
