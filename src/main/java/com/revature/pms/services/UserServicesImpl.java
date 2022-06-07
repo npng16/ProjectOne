@@ -1,6 +1,6 @@
 package com.revature.pms.services;
 
-import com.revature.pms.dao.ItemDAO;
+import com.revature.pms.exceptions.UnsuccessfulLogInException;
 import com.revature.pms.exceptions.UserNotFoundException;
 import com.revature.pms.model.User;
 import com.revature.pms.dao.UserDAO;
@@ -36,8 +36,11 @@ public class UserServicesImpl implements UserServices {
 
     @Override
     public boolean deleteUser(int userId) {
-        userDAO.deleteById(userId);
-        return true;
+        if(userDAO.existsById(userId)) {
+            userDAO.deleteById(userId);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -49,12 +52,28 @@ public class UserServicesImpl implements UserServices {
             oUser.setCart(user.getCart());
 //            oUser.setOrders(user.getOrders());
             userDAO.save(oUser);
+
+            HttpSession session = request.getSession(false);    //must be logged in already
+            User sessionUser = (User) session.getAttribute("currentUser");
+
+            //If the user is updating themselves, we must update the information in the session
+            if(sessionUser.getUserId() == user.getUserId()) {
+                session.setAttribute("currentUser", user);
+            }
+
            return true;
         }
         else {
             System.out.println("Cannot update user because user does not exist");
             return false;
         }
+
+
+    }
+
+    @Override
+    public User findById(int userId) {
+        return userDAO.findById(userId).orElseThrow(() -> new UserNotFoundException("No user with id = " + userId));
     }
 
     @Override
@@ -67,7 +86,7 @@ public class UserServicesImpl implements UserServices {
     @Override
     public User login(String userEmail, String userPassword) {
         User exists = userDAO.findByEmailAndPassword(userEmail, userPassword)
-                .orElseThrow(() -> new UserNotFoundException(String.format("No User with email: ", userEmail)));
+                .orElseThrow(() -> new UnsuccessfulLogInException(String.format("Log in credentials are not valid..")));
         HttpSession session = request.getSession();
         session.setAttribute("currentUser", exists);
 

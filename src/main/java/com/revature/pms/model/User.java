@@ -25,6 +25,8 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
+    @Column(name = "role")
+    private Role role;
 
     // every time a user is created, a cart is created too
 

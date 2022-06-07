@@ -1,6 +1,8 @@
 package com.revature.pms.exceptions;
 
-import org.omg.CORBA.UserException;
+import com.revature.pms.model.User;
+
+import javax.jws.soap.SOAPBinding;
 
 public class UserNotFoundException extends RuntimeException{
     public UserNotFoundException() {
