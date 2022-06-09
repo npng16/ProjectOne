@@ -4,8 +4,11 @@ import com.revature.pms.dao.CartDAO;
 import com.revature.pms.model.Cart;
 import com.revature.pms.model.Item;
 import com.revature.pms.services.CartService;
+import com.revature.pms.services.CartServiceImpl;
 import com.revature.pms.services.ItemServices;
 import com.revature.pms.services.UserServices;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,18 +20,9 @@ import java.util.List;
 @RestController
 @RequestMapping("cart") //localhost:8080/cart
 public class CartController {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(CartController.class);
     @Autowired(required = false)
     CartService cartService;
-
-    @Autowired
-    UserServices userService;
-
-    @Autowired
-    Cart cart;
-
-    @Autowired
-    CartDAO cartDAO;
 
     @Autowired
     ItemServices itemService;
@@ -39,20 +33,27 @@ public class CartController {
 //        return responseEntity;
 //    }
 
-    // get cart by userId
-    @GetMapping("/getCart/{Id}")
-    public Cart setCartByUserId(@PathVariable("Id") int mUserId) {
-        cartService.findCartIdByUserId(mUserId);
-        cart.setCartId(mUserId);
-        cartDAO.save(cart);
-        return cart;
-    }
-    @GetMapping("/addItemToCart/{id}")
-    public String addItemToCart(@PathVariable("Id") int mItemId) {
 
-        return "added item by item Id: " + mItemId + " to cart..";
+//    @GetMapping("/addItemToCart/{mitemId}")
+//    public ResponseEntity<String> addItemToCart(@PathVariable("mitemId") int mItemId) {
+//
+////        cartService.addItemToCart(mItemId);
+////            return "added item by item Id: " + mItemId + " to cart..";
+//        ResponseEntity<String> responseEntity;
+//
+//            if (cartService.addItemToCart(mItemId)) {
+//                responseEntity = new ResponseEntity<String>
+//                        ("Item added to cart successfully", HttpStatus.OK);
+//                LOGGER.info("Item added to cart successfully");
+//            }
+//            else {
+//                responseEntity = new ResponseEntity<String>
+//                        ("Cannot add item id " + mItemId, HttpStatus.NOT_ACCEPTABLE);
+//                LOGGER.error("Cannot add user item id");
+//            }
+//        return responseEntity;
+//    }
 
-    }
 
     @GetMapping("/displayAllCartItems")
     public ResponseEntity<String> getItems() {

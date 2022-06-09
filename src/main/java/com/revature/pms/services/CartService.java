@@ -7,8 +7,7 @@ import java.util.List;
 
 @Service
 public interface CartService {
-    public void findCartIdByUserId(int id);
-    public void addItemToCart(int itemId, int userId);
+    public boolean addItemToCart(int itemId);
     public void addItemToOrders(Item item);
     public List<Item> getItems();
 }

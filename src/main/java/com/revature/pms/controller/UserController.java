@@ -1,20 +1,15 @@
 package com.revature.pms.controller;
 
 import com.revature.pms.annotations.Authorized;
-import com.revature.pms.dao.CartDAO;
-import com.revature.pms.model.Item;
 import com.revature.pms.model.Role;
 import com.revature.pms.model.User;
 import com.revature.pms.services.AuthorizationService;
-import com.revature.pms.services.ItemServices;
 import com.revature.pms.services.UserServices;
 import com.revature.pms.utilities.GenerateRandomNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -44,8 +39,7 @@ public class UserController {
     @GetMapping     //localhost:8080/user   *********** DISPLAY ALL USERS **********
     public ResponseEntity<List<User>> getUsers() {
         ResponseEntity responseEntity = null;
-        List<User> users = userService.getUsers();
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+        return new ResponseEntity<List<User>>(userService.getUsers(), HttpStatus.OK);
     }
 
     //display user by userid
@@ -84,8 +78,11 @@ public class UserController {
     }
 
 
+    @Authorized(allowedRoles = {Role.ADMIN, Role.CUSTOMER, Role.CUSTOMER})
     @PutMapping("/addItemToCart/{Id}") //localhost:8080/user
     public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("Id") int id) {
+        authorizationService.guardByUserId(user.getUserId());
+
         boolean result = userService.updateUser(user, id);
         ResponseEntity responseEntity = null;
         if(result) {
