@@ -1,6 +1,8 @@
 package com.revature.pms.controller;
 
+import com.revature.pms.annotations.Authorized;
 import com.revature.pms.model.Item;
+import com.revature.pms.model.Role;
 import com.revature.pms.model.User;
 import com.revature.pms.services.ItemServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ public class ItemController {
         List<Item> items = itemService.getItems();
         return new ResponseEntity<List<Item>>(items, HttpStatus.OK);
     }
+    @Authorized(allowedRoles = {Role.ADMIN})
     @PostMapping()
     public ResponseEntity<String> addItem(@RequestBody Item item) {
         ResponseEntity responseEntity = null;
@@ -34,6 +37,7 @@ public class ItemController {
         return responseEntity;
     }
 
+    @Authorized(allowedRoles = {Role.ADMIN})
     @DeleteMapping("{pItemId}")
     public String deleteItem(@PathVariable("pItemId") int itemId) {
         itemService.deleteItem(itemId);
