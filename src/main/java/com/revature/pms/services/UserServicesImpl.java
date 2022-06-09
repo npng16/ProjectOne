@@ -1,5 +1,6 @@
 package com.revature.pms.services;
 
+import com.revature.pms.exceptions.NotLoggedInException;
 import com.revature.pms.exceptions.UnsuccessfulLogInException;
 import com.revature.pms.exceptions.UserNotFoundException;
 import com.revature.pms.model.User;
@@ -55,10 +56,8 @@ public class UserServicesImpl implements UserServices {
     public boolean updateUser(User user, int id) {
         User oUser = userDAO.getReferenceById(id);
         if(isUserExists(oUser.getUserId())) {
-//            oUser.setEmail(user.getEmail());
             oUser.setName(user.getName());
             oUser.setCart(user.getCart());
-//            oUser.setOrders(user.getOrders());
             userDAO.save(oUser);
 
             HttpSession session = request.getSession(false);    //must be logged in already
@@ -106,7 +105,7 @@ public class UserServicesImpl implements UserServices {
         HttpSession session = request.getSession(false);
         if(session == null) {
             //nobody is logged on
-            return;
+            throw new NotLoggedInException("You are not logged in..");
         }
         session.invalidate();
         System.out.println("You have been logged out successfully. ");
