@@ -23,7 +23,6 @@ public class ItemController {
 
     @GetMapping()
     public ResponseEntity<List<Item>> getItems() {
-        ResponseEntity responseEntity = null;
         List<Item> items = itemService.getItems();
         return new ResponseEntity<List<Item>>(items, HttpStatus.OK);
     }
@@ -39,8 +38,8 @@ public class ItemController {
 
     @Authorized(allowedRoles = {Role.ADMIN})
     @DeleteMapping("{pItemId}")
-    public String deleteItem(@PathVariable("pItemId") int itemId) {
+    public ResponseEntity<String> deleteItem(@PathVariable("pItemId") int itemId) {
         itemService.deleteItem(itemId);
-        return "Deleting details by item Id: " + itemId;
+        return new ResponseEntity<String>("Deleting details by item Id: " + itemId, HttpStatus.OK);
     }
 }
