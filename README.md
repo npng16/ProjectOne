@@ -4,6 +4,9 @@ Set up the backend for an online store to buy items. Users can register and log 
 #Technologies Used
 - Java, Spring, REST, DBeaver, Postman, AWS, PostGreSQL
 
+#How to Run <br/>
+AWS services are running. In Postman, perform requests provided in the "Requirements Implemented" section below.
+
 ## Project Features 
 - Register a User
 - Delete a User 
